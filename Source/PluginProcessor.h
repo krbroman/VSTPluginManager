@@ -55,7 +55,15 @@ public:
     void getStateInformation (MemoryBlock& destData) override;
     void setStateInformation (const void* data, int sizeInBytes) override;
 
+	AudioProcessorValueTreeState& getState();
+	void Distortion(AudioBuffer<float>&, int totalNumInputChannels);
+	void Equalizer(AudioBuffer<float>&, int totalNumInputChannels);
+
 private:
+
+	ScopedPointer<AudioProcessorValueTreeState> _state;
+	
+
     //==============================================================================
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (VstpluginManagerAudioProcessor)
 };

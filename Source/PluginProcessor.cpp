@@ -24,6 +24,20 @@ VstpluginManagerAudioProcessor::VstpluginManagerAudioProcessor()
                        )
 #endif
 {
+	
+	
+
+	_state = new AudioProcessorValueTreeState(*this, nullptr);
+
+	_state->createAndAddParameter("gain", "Gain", "Gain", NormalisableRange<float>(0.f, 1.f, 0.0001), 1.f, nullptr, nullptr);
+	_state->createAndAddParameter("range", "Range", "Range", NormalisableRange<float>(0.f, 3000.f, 0.0001), 1.f, nullptr, nullptr);
+	_state->createAndAddParameter("mix", "Mix", "Mix", NormalisableRange<float>(0.f, 1.f, 0.0001), 1.f, nullptr, nullptr);
+	_state->createAndAddParameter("volume", "Volume", "Volume", NormalisableRange<float>(0.f, 3.f, 0.0001), 1.f, nullptr, nullptr);
+
+	_state->state = ValueTree("drive");
+	_state->state = ValueTree("range");
+	_state->state = ValueTree("mix");
+	_state->state = ValueTree("volume");
 }
 
 VstpluginManagerAudioProcessor::~VstpluginManagerAudioProcessor()
@@ -150,12 +164,36 @@ void VstpluginManagerAudioProcessor::processBlock (AudioBuffer<float>& buffer, M
     // the samples and the outer loop is handling the channels.
     // Alternatively, you can process the samples with the channels
     // interleaved by keeping the same state.
-    for (int channel = 0; channel < totalNumInputChannels; ++channel)
-    {
-        auto* channelData = buffer.getWritePointer (channel);
+	Distortion(buffer, totalNumInputChannels);
+}
 
-        // ..do something to the data...
-    }
+void VstpluginManagerAudioProcessor::Distortion(AudioBuffer<float>& buffer, int totalNumInputChannels)
+{
+	float gain = *_state->getRawParameterValue("gain");
+	float range = *_state->getRawParameterValue("range");
+	float mix = *_state->getRawParameterValue("mix");
+	float volume = *_state->getRawParameterValue("volume");
+
+	for (int channel = 0; channel < totalNumInputChannels; ++channel)
+	{
+		auto* channelData = buffer.getWritePointer(channel);
+
+		for (int sample = 0; sample < buffer.getNumSamples(); ++sample)
+		{
+			float cleanSignal = *channelData;
+
+			*channelData *= gain * range;
+			*channelData = ((((2.0 / float_Pi) * atan(*channelData)) * mix + cleanSignal * (1.0 - mix)) / 2) * volume;
+
+
+			++channelData;
+		}
+	}
+}
+
+void VstpluginManagerAudioProcessor::Equalizer(AudioBuffer<float>&, int totalNumInputChannels)
+{
+
 }
 
 //==============================================================================
@@ -175,12 +213,20 @@ void VstpluginManagerAudioProcessor::getStateInformation (MemoryBlock& destData)
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
     // as intermediaries to make it easy to save and load complex data.
+
+	MemoryOutputStream stream(destData, false);
+	_state->state.writeToStream(stream);
 }
 
 void VstpluginManagerAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     // You should use this method to restore your parameters from this memory block,
     // whose contents will have been created by the getStateInformation() call.
+
+	ValueTree tree = ValueTree::readFromData(data, sizeInBytes);
+
+	if (tree.isValid())
+		_state->state = tree;
 }
 
 //==============================================================================
@@ -188,4 +234,9 @@ void VstpluginManagerAudioProcessor::setStateInformation (const void* data, int 
 AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
     return new VstpluginManagerAudioProcessor();
+}
+
+AudioProcessorValueTreeState& VstpluginManagerAudioProcessor::getState()
+{
+	return *_state;
 }

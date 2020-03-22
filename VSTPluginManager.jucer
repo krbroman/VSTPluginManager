@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<JUCERPROJECT id="J04rMd" name="VSTPluginManager" projectType="audioplug" jucerVersion="5.4.7">
+<JUCERPROJECT id="J04rMd" name="VSTPluginManager" projectType="audioplug" jucerVersion="5.4.7"
+              companyEmail="supermcguitarcraft@gmail.com" pluginFormats="buildStandalone,buildVST3"
+              pluginChannelConfigs="{1, 1}, {2, 2}">
   <MAINGROUP id="mZb3Ln" name="VSTPluginManager">
     <GROUP id="{69B8A92A-E024-8559-170A-536E7F0C3E2F}" name="Source">
       <FILE id="QdgXkP" name="PluginProcessor.cpp" compile="1" resource="0"
