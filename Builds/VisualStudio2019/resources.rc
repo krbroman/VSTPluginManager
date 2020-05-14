@@ -7,16 +7,17 @@
 #include <windows.h>
 
 VS_VERSION_INFO VERSIONINFO
-FILEVERSION  1,0,0,0
+FILEVERSION  1,0,5,0
 BEGIN
   BLOCK "StringFileInfo"
   BEGIN
     BLOCK "040904E4"
     BEGIN
+      VALUE "CompanyName",  "KRB Software\0"
       VALUE "FileDescription",  "VSTPluginManager\0"
-      VALUE "FileVersion",  "1.0.0\0"
+      VALUE "FileVersion",  "1.0.5\0"
       VALUE "ProductName",  "VSTPluginManager\0"
-      VALUE "ProductVersion",  "1.0.0\0"
+      VALUE "ProductVersion",  "1.0.5\0"
     END
   END
 

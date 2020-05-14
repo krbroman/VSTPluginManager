@@ -23,6 +23,7 @@
 #include <juce_core/juce_core.h>
 #include <juce_cryptography/juce_cryptography.h>
 #include <juce_data_structures/juce_data_structures.h>
+#include <juce_dsp/juce_dsp.h>
 #include <juce_events/juce_events.h>
 #include <juce_graphics/juce_graphics.h>
 #include <juce_gui_basics/juce_gui_basics.h>
@@ -49,8 +50,8 @@
 namespace ProjectInfo
 {
     const char* const  projectName    = "VSTPluginManager";
-    const char* const  companyName    = "";
-    const char* const  versionString  = "1.0.0";
-    const int          versionNumber  = 0x10000;
+    const char* const  companyName    = "KRB Software";
+    const char* const  versionString  = "1.0.5";
+    const int          versionNumber  = 0x10005;
 }
 #endif

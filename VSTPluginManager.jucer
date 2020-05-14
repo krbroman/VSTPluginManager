@@ -2,7 +2,8 @@
 
 <JUCERPROJECT id="J04rMd" name="VSTPluginManager" projectType="audioplug" jucerVersion="5.4.7"
               companyEmail="supermcguitarcraft@gmail.com" pluginFormats="buildStandalone,buildVST3"
-              pluginChannelConfigs="{1, 1}, {2, 2}">
+              pluginChannelConfigs="{1, 1}, {2, 2}" companyName="KRB Software"
+              version="1.0.5">
   <MAINGROUP id="mZb3Ln" name="VSTPluginManager">
     <GROUP id="{69B8A92A-E024-8559-170A-536E7F0C3E2F}" name="Source">
       <FILE id="QdgXkP" name="PluginProcessor.cpp" compile="1" resource="0"
@@ -35,6 +36,7 @@
         <MODULEPATH id="juce_gui_basics" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_gui_extra" path="../../JUCE/modules"/>
         <MODULEPATH id="juce_opengl" path="../../JUCE/modules"/>
+        <MODULEPATH id="juce_dsp" path="../../JUCE/modules"/>
       </MODULEPATHS>
     </VS2019>
   </EXPORTFORMATS>
@@ -49,6 +51,7 @@
     <MODULE id="juce_core" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_cryptography" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_data_structures" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
+    <MODULE id="juce_dsp" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_events" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_graphics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>
     <MODULE id="juce_gui_basics" showAllCode="1" useLocalCopy="0" useGlobalPath="0"/>

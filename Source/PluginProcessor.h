@@ -58,10 +58,22 @@ public:
 	AudioProcessorValueTreeState& getState();
 	void Distortion(AudioBuffer<float>&, int totalNumInputChannels);
 	void Equalizer(AudioBuffer<float>&, int totalNumInputChannels);
-
+	void Reverb(AudioBuffer<float>&, int totalNumInputChannels);
+	float* combFilter(AudioBuffer<float>& buffer, float decayFactor, int delayInS, int numSamples, int channel);
+	float* allPassFilter(float* data, float sampleRate, int numSamples);
+	void FillReverbBuffer(AudioBuffer<float>& buffer, int totalNumInputChannels, int bufferLength, int reverbBufferLength);
+	void FillChorusBuffer(AudioBuffer<float>& buffer, int totalNumInputChannels, int bufferLength, int chorusBufferLength);
+	void Chorus(AudioBuffer<float>&, int totalNumInputChannels);
 private:
 
 	ScopedPointer<AudioProcessorValueTreeState> _state;
+	AudioBuffer<float> _ReverbBuffer;
+	int _writePos{ 0 };
+	float _sampleRate{ 44100.f };
+
+	AudioBuffer<float> _ChorusBuffer;
+	int _writePosChorus{ 0 };
+
 	
 
     //==============================================================================
